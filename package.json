@@ -1,0 +1,17 @@
+{
+  "name": "amazon-owl",
+  "version": "1.0.0",
+  "description": "An amazon price tracker",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chris Cosentino",
+  "license": "MIT",
+  "dependencies": {
+    "@sendgrid/mail": "^7.2.4",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "nightmare": "^3.0.2"
+  }
+}

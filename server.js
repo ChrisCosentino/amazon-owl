@@ -83,6 +83,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', () => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); //relative path
   });
+} else {
+  console.log('not in prodcution');
 }
 
 const PORT = process.env.PORT || 5001;

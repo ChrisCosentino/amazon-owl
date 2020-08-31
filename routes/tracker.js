@@ -1,10 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const config = require('config');
 const nightmare = require('nightmare');
-const sgMail = require('@sendgrid/mail');
-
-sgMail.setApiKey(config.get('SendGridApiKey'));
 
 const Tracker = require('../models/Tracker');
 

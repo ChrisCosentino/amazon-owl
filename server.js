@@ -76,5 +76,14 @@ function sendEmail(to, subject, body) {
   }
 }
 
+if (process.env.NODE_ENV === 'production') {
+  console.log('in production');
+  app.use(express.static('client/build'));
+
+  app.get('*', () => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); //relative path
+  });
+}
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));

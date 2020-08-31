@@ -52,10 +52,15 @@ cron.schedule('*/1 * * * *', async () => {
       sendEmail(
         tracker.email,
         'The Price is low',
-        `The price on ${tracker.url} has not changed since  $${priceNumber}`
+        `The price on ${tracker.url} has decreased since  $${priceNumber}`
       );
     } else if (priceNumber > tracker.price) {
       console.log('price is greater than the original');
+      sendEmail(
+        tracker.email,
+        'The Price has increased',
+        `The price on ${tracker.url} has increased since  $${priceNumber}`
+      );
     } else {
       console.log('price hasnt changed');
     }

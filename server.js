@@ -3,7 +3,6 @@ const connectDB = require('./config/db');
 const cron = require('node-cron');
 const nightmare = require('nightmare');
 const config = require('config');
-
 const path = require('path');
 
 const app = express();
@@ -11,7 +10,8 @@ const app = express();
 const Tracker = require('./models/Tracker');
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(config.get('SendGridApiKey') || process.env.mongoURI);
+sgMail.setApiKey(process.env.mongoURI);
+// config.get('SendGridApiKey') ||
 
 connectDB();
 

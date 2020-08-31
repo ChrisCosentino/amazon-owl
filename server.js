@@ -15,6 +15,8 @@ sgMail.setApiKey(config.get('SendGridApiKey') || process.env.mongoURI);
 
 connectDB();
 
+console.log('in the app');
+
 app.use(express.json({ extended: false }));
 
 app.get('/api', (req, res) => res.send('api running'));

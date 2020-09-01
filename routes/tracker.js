@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
     });
 
     const page = await browser.newPage();
-    await page.goto(url);
+    await page.goto(url, { timeout: 60000, waitUntil: 'domcontentloaded' });
     await page.waitForSelector('#price_inside_buybox');
 
     const product = await page.evaluate(() => {

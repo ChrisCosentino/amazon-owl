@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
     // const priceNumber = parseFloat(output);
 
     await Tracker.create(product);
-
+    console.log('successfully created a tracker');
     res.send({ msg: 'successfully created a tracker' });
   } catch (err) {
     console.log(err.message);

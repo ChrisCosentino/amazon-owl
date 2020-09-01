@@ -26,7 +26,7 @@ const Landing = () => {
         throw new Error('All fields required');
       }
 
-      const res = await axios.post('/api/tracker', {
+      const res = await axios.post('/api/tracker/', {
         url: search,
         email: email,
       });
@@ -34,7 +34,7 @@ const Landing = () => {
       setLoading(false);
       createNotification();
       setSearch('');
-      setLoading('');
+      setEmail('');
     } catch (err) {
       createErrorNotification(err.message);
       console.log('error posting');

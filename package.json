@@ -21,6 +21,7 @@
     "mongoose": "^5.10.2",
     "nightmare": "^3.0.2",
     "node-cron": "^2.0.3",
+    "puppeteer": "^5.2.1",
     "uuid": "^8.3.0"
   },
   "devDependencies": {

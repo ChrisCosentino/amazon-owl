@@ -12,6 +12,9 @@ const TrackerSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
+  title: {
+    type: String,
+  },
   trackerId: {
     type: String,
     // unique: true,

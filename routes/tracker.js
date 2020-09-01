@@ -14,8 +14,7 @@ router.post('/', async (req, res) => {
     const { url, email } = req.body;
 
     const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: ['--no-sandbox'],
     });
 
     const page = await browser.newPage();

@@ -1,0 +1,4 @@
+{
+  "SendGridApiKey": "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",
+  "mongoURI": "mongodb+srv://dbUser:Buddy13c@cluster0.f9asw.mongodb.net/AmazonPriceTracker?retryWrites=true&w=majority"
+}

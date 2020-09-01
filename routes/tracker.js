@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const nightmare = require('nightmare');
+// const nightmare = require('nightmare');
 const puppeteer = require('puppeteer');
 
 const Tracker = require('../models/Tracker');

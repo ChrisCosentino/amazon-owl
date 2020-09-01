@@ -1,7 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const cron = require('node-cron');
-const nightmare = require('nightmare');
+// const nightmare = require('nightmare');
 const config = require('config');
 const path = require('path');
 

@@ -25,9 +25,9 @@ router.post('/', async (req, res) => {
     const page = await browser.newPage();
 
     await page.goto(url);
-    await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+    // await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
 
-    // await page.waitForSelector('#price_inside_buybox');
+    await page.waitForSelector('#price_inside_buybox');
 
     const product = await page.evaluate(() => {
       const priceString = document.getElementById('price_inside_buybox')

@@ -10,12 +10,9 @@ const app = express();
 const Tracker = require('./models/Tracker');
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SendGridApiKey);
-// config.get('SendGridApiKey') ||
+sgMail.setApiKey(process.env.SendGridApiKey || config.get('SendGridApiKey'));
 
 connectDB();
-
-console.log('in the app');
 
 app.use(express.json({ extended: false }));
 

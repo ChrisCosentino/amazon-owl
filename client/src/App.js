@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { NotificationContainer } from 'react-notifications';
 
 import Landing from './components/Landing';
 import Navbar from './components/Navbar';
@@ -12,6 +13,7 @@ const App = () => {
       <Router>
         <Navbar />
         <Route exact path='/' component={Landing} />
+        <NotificationContainer />
         {/* <Landing /> */}
       </Router>
     </div>

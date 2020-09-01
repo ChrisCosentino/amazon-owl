@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Loader from 'react-loader-spinner';
+import { NotificationManager } from 'react-notifications';
+
+import 'react-notifications/lib/notifications.css';
 
 const Landing = () => {
+  const [loading, setLoading] = useState(false);
+
   const [search, setSearch] = useState('');
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -13,16 +19,38 @@ const Landing = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
+      if (search === '' || email === '') {
+        throw new Error('All fields required');
+      }
+
       const res = await axios.post('/api/tracker', {
         url: search,
         email: email,
       });
       console.log(res.data);
+      setLoading(false);
+      createNotification();
+      setSearch('');
+      setLoading('');
     } catch (err) {
+      createErrorNotification(err.message);
       console.log('error posting');
+      setLoading(false);
     }
+  };
+
+  const createNotification = () => {
+    NotificationManager.success(
+      'We sent you an email with your product information!',
+      'Success!'
+    );
+  };
+
+  const createErrorNotification = (msg) => {
+    NotificationManager.error(msg, 'Error!');
   };
 
   return (
@@ -95,6 +123,9 @@ const Landing = () => {
           Submit
         </button>
       </form>
+      {loading && (
+        <Loader type='Puff' color='#0f9d58' height={100} width={100} />
+      )}
     </div>
   );
 };

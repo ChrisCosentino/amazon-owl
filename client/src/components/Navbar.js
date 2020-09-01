@@ -36,7 +36,10 @@ const Navbar = () => {
       <div className='nav-link' onClick={handleModal}>
         How it works.
       </div>
-      <Modal isOpen={openModal} style={{ border: 'none', borderRadius: '0px' }}>
+      <Modal
+        isOpen={openModal}
+        style={{ border: 'none', borderRadius: '0px' }}
+        ariaHideApp={false}>
         <div className='close' onClick={handleModal}>
           <svg
             width='24'
@@ -70,8 +73,8 @@ const Navbar = () => {
             down.
             <h1 className='modal-title'>Get in touch.</h1>
             <div>
-              If you need assistance or have any questions about the product and
-              I, my email is:{' '}
+              If you need assistance, have any questions about the product or
+              myself, my email is:{' '}
               <a
                 className='contact-link'
                 href='mailto:chriscosentino@hotmail.com'>

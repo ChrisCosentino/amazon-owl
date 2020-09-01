@@ -9,7 +9,9 @@
     "axios": "^0.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-loader-spinner": "^3.1.14",
     "react-modal": "^3.11.2",
+    "react-notifications": "^1.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3"
   },

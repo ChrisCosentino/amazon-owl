@@ -14,7 +14,7 @@ const TrackerSchema = new mongoose.Schema({
   },
   trackerId: {
     type: String,
-    unique: true,
+    // unique: true,
     default: uuidv4(),
   },
   date: {

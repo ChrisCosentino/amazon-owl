@@ -31,10 +31,11 @@ router.post('/', async (req, res) => {
 
     await Tracker.create({ email, url, price: priceNumber });
 
-    res.send('successfully created a tracker');
+    res.send({ msg: 'successfully created a tracker' });
   } catch (err) {
     console.log(err.message);
     console.log('there was an error creating a tracker');
+    res.status(400).send({ err: 'Error creating a tracker try again' });
   }
 });
 

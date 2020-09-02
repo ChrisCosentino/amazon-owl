@@ -14,17 +14,13 @@ router.post('/', async (req, res) => {
     const { url, email } = req.body;
 
     const browser = await puppeteer.launch({
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--single-process',
-      ],
+      headless: true,
+      args: ['--no-sandbox'],
     });
 
     const page = await browser.newPage();
 
-    await page.goto(url, { waitUntil: 'domcontentloaded' });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     // await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
 
     // await page.waitForSelector('#price_inside_buybox');

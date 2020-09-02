@@ -18,9 +18,12 @@ router.post('/', async (req, res) => {
       args: ['--no-sandbox'],
     });
 
-    const page = await browser.newPage();
+    console.log('launched');
 
+    const page = await browser.newPage();
+    console.log('created');
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    console.log('visited');
     // await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
 
     // await page.waitForSelector('#price_inside_buybox');
@@ -43,6 +46,8 @@ router.post('/', async (req, res) => {
       };
       return p;
     });
+
+    console.log('made product');
 
     await browser.close();
     product.url = url;

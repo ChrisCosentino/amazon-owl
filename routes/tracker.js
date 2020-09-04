@@ -36,8 +36,10 @@ router.post('/', async (req, res) => {
   try {
     console.log('tracking');
     const { url, email } = req.body;
+
     const browser = await browserPromise;
-    const page = await browser.newPage();
+    const context = await browser.createIncognitoBrowserContext();
+    const page = await context.newPage();
 
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
 
@@ -68,7 +70,7 @@ router.post('/', async (req, res) => {
 
     console.log('made product');
 
-    await browser.close();
+    await context.close();
     product.url = url;
     product.email = email;
     console.log(product);

@@ -4,7 +4,7 @@ const router = express.Router();
 const puppeteer = require('puppeteer');
 const config = require('config');
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SendGridApiKey || config.get('SendGridApiKey'));
+sgMail.setApiKey(process.env.SG_API_KEY || config.get('SendGridApiKey'));
 
 const Tracker = require('../models/Tracker');
 
@@ -42,12 +42,6 @@ router.post('/', async (req, res) => {
     const page = await context.newPage();
 
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-
-    // await page.waitForNavigation({ waitUntil: 'domcontentloaded' });
-
-    // await page.waitForSelector('#price_inside_buybox');
-
-    // console.log(await page.content());
 
     const product = await page.evaluate(() => {
       const priceString = document.getElementById('price_inside_buybox')

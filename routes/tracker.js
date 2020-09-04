@@ -24,6 +24,11 @@ function sendEmail(to, subject, body) {
   }
 }
 
+const browserPromise = puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox'],
+});
+
 // @route    POST api/tracker
 // @desc     Create a price tracker in the DB to track a price
 // @access   Public
@@ -31,12 +36,7 @@ router.post('/', async (req, res) => {
   try {
     console.log('tracking');
     const { url, email } = req.body;
-
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox'],
-    });
-
+    const browser = await browserPromise;
     const page = await browser.newPage();
 
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });

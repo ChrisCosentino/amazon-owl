@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { v4: uuidv4 } = require('uuid');
 
 const TrackerSchema = new mongoose.Schema({
   email: {
@@ -17,8 +16,7 @@ const TrackerSchema = new mongoose.Schema({
   },
   trackerId: {
     type: String,
-    // unique: true,
-    default: uuidv4(),
+    unique: true,
   },
   date: {
     type: Date,

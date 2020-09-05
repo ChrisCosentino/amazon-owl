@@ -77,6 +77,7 @@ body {
   background-color: var(--color-green);
   font-weight: 800;
   letter-spacing: 0.5px;
+  color: white;
 }
 
 .btn:hover {
@@ -115,13 +116,15 @@ body {
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: 2px;
+  text-decoration: none;
+  color: black;
 }
 
 .nav-link {
   border: 1px solid black;
   padding: 10px 20px;
   background-color: var(--color-green);
-  color: black;
+  color: white;
   opacity: 0.8;
   letter-spacing: 0.5px;
   font-weight: 800;
@@ -190,6 +193,24 @@ body {
 .contact-link:hover {
   text-decoration: underline;
   text-decoration-style: dotted;
+}
+
+.rm-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+}
+.rm {
+  display: flex;
+  flex-direction: column;
+}
+
+.back {
+  text-decoration: none;
+  color: white;
 }
 
 @media only screen and (max-width: 674px) {

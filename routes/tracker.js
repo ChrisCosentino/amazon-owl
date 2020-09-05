@@ -1,28 +1,12 @@
 const express = require('express');
 const router = express.Router();
-// const nightmare = require('nightmare');
+const { v4: uuidv4 } = require('uuid');
 const puppeteer = require('puppeteer');
 const config = require('config');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SG_API_KEY || config.get('SendGridApiKey'));
 
 const Tracker = require('../models/Tracker');
-
-function sendEmail(to, subject, body) {
-  const email = {
-    to: to,
-    from: 'ccos2u@hotmail.com',
-    subject: subject,
-    text: body,
-    html: body,
-  };
-
-  try {
-    return sgMail.send(email);
-  } catch (error) {
-    console.log('error sending email');
-  }
-}
 
 const browserPromise = puppeteer.launch({
   headless: true,
@@ -67,15 +51,18 @@ router.post('/', async (req, res) => {
     await context.close();
     product.url = url;
     product.email = email;
+    product.trackerId = uuidv4();
     console.log(product);
 
     await Tracker.create(product);
     console.log('creating email');
+
     await sendEmail(
       product.email,
       'Youve created a tracker',
-      `You created a tracker for ${product.title} for $${product.price} \n 
-      The link is: ${url}`
+      product.price,
+      product.title,
+      'd-46ecbd5a1048416e9f0d6f3b0b0b58f5'
     );
 
     console.log('sent email');
@@ -87,5 +74,41 @@ router.post('/', async (req, res) => {
     res.status(400).send({ err: 'Error creating a tracker try again' });
   }
 });
+
+// @route    DELETE api/tracker
+// @desc     Deletes a tracker in the database
+// @access   Public
+router.delete('/:trackerId', async (req, res) => {
+  try {
+    const tracker = await Tracker.findOneAndRemove({
+      trackerId: req.params.trackerId,
+    });
+
+    if (!tracker) {
+      throw new Error('Tracker does not exist in the db');
+    }
+
+    res.send({ msg: 'Successfully removed the tracker' });
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).send({ err: 'Error removing tracker' });
+  }
+});
+
+function sendEmail(to, subject, product_price, product_title, templateId) {
+  const email = {
+    to: to,
+    from: 'ccos2u@hotmail.com',
+    subject: subject,
+    templateId: templateId,
+    dynamic_template_data: { product_price, product_title },
+  };
+
+  try {
+    return sgMail.send(email);
+  } catch (error) {
+    console.log('error sending email');
+  }
+}
 
 module.exports = router;

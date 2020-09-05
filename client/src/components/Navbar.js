@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -31,7 +32,9 @@ const Navbar = () => {
           <path d='M13 9H17V15H13V9Z' fill='#dbdb00' fillOpacity='0.5' />
           <path d='M7 6H11V18H7V6Z' fill='#0f9d58' />
         </svg>
-        <h1 className='logo-title'>Amazon Owl</h1>
+        <Link to='/' className='logo-title'>
+          Amazon Owl
+        </Link>
       </div>
       <div className='nav-link' onClick={handleModal}>
         How it works.

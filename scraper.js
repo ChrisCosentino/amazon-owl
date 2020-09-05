@@ -1,25 +1,13 @@
-const express = require('express');
-const connectDB = require('./config/db');
-const cron = require('node-cron');
-// const nightmare = require('nightmare');
-const config = require('config');
-const path = require('path');
+const puppeteer = require('puppeteer');
+const mongoose = require('mongoose');
 
-const app = express();
+function sayHello() {
+  console.log('hello');
+}
 
-const Tracker = require('./models/Tracker');
+sayHello();
 
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SendGridApiKey || config.get('SendGridApiKey'));
-
-connectDB();
-
-app.use(express.json({ extended: false }));
-
-app.get('/api', (req, res) => res.send('api running'));
-
-app.use('/api/tracker/', require('./routes/tracker'));
-
+function scrapeProducts() {}
 // cron.schedule('*/1 * * * *', async () => {
 //   console.log('started cron job');
 //   const trackers = await Tracker.find();
@@ -65,16 +53,3 @@ app.use('/api/tracker/', require('./routes/tracker'));
 
 //   console.log('running job every hour');
 // });
-
-// Serve react in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`server started on port ${PORT}`));

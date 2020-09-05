@@ -1,14 +1,10 @@
 const puppeteer = require('puppeteer');
-const mongoose = require('mongoose');
 const connectDB = require('./config/db');
+const config = require('config');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SendGridApiKey || config.get('SendGridApiKey'));
 
 const Tracker = require('./models/Tracker');
-
-// function sayHello() {
-//   console.log('hello');
-// }
-
-// sayHello();
 
 async function scrapeProducts() {
   const browserPromise = puppeteer.launch({
@@ -43,6 +39,7 @@ async function scrapeProducts() {
         request.continue();
       }
     });
+
     await page.goto(tracker.url, {
       waitUntil: 'domcontentloaded',
       timeout: 200000,
@@ -67,55 +64,38 @@ async function scrapeProducts() {
 
       return p;
     });
+    const product_url = tracker.url;
+    const product_title = tracker.title;
+    const product_price = tracker.price;
+    const product_trackerId = tracker.trackerId;
+    const product_cancelUrl = `https://amazon-owl.herokuapp.com/rm/${product_trackerId}`;
+
+    if (product.price > tracker.price) {
+      console.log('price is higher than what it used to be');
+    } else if (product.price < tracker.price) {
+      console.log('price is lower than before');
+      sgMail.send({
+        to: tracker.email,
+        from: 'ccos2u@hotmail.com',
+        subject: 'Price dropped',
+        templateId: 'd-002654122d7540548017e5c884d8ce4a',
+        dynamic_template_data: {
+          product_price,
+          product_title,
+          product_url,
+          product_cancelUrl,
+        },
+      });
+
+      const t = await Tracker.findOne({ trackerId: tracker.trackerId });
+      t.price = product.price;
+      t.save();
+    } else {
+      console.log('price hasnt changed');
+    }
     console.log(product);
     await page.close();
   });
 }
 
 scrapeProducts();
-
-// cron.schedule('*/1 * * * *', async () => {
-//   console.log('started cron job');
-//   const trackers = await Tracker.find();
-
-//   console.log(trackers);
-//   trackers.forEach(async (tracker) => {
-//     console.log('price: ' + tracker.price);
-
-//     const priceString = await nightmare()
-//       .goto(tracker.url)
-//       .wait('#price_inside_buybox')
-//       .evaluate(() => document.getElementById('price_inside_buybox').innerText)
-//       .end();
-
-//     let priceNum = priceString.replace(/\D/g, '');
-
-//     var output = [
-//       priceNum.slice(0, priceNum.length - 2),
-//       '.',
-//       priceNum.slice(priceNum.length - 2),
-//     ].join('');
-
-//     const priceNumber = parseFloat(output);
-
-//     if (priceNumber < tracker.price) {
-//       console.log('price is less than the original');
-//       sendEmail(
-//         tracker.email,
-//         'The Price is low',
-//         `The price on ${tracker.url} has decreased since  $${priceNumber}`
-//       );
-//     } else if (priceNumber > tracker.price) {
-//       console.log('price is greater than the original');
-//       sendEmail(
-//         tracker.email,
-//         'The Price has increased',
-//         `The price on ${tracker.url} has increased since  $${priceNumber}`
-//       );
-//     } else {
-//       console.log('price hasnt changed');
-//     }
-//   });
-
-//   console.log('running job every hour');
-// }

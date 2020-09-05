@@ -16,8 +16,6 @@ const RemoveTracker = ({ match }) => {
       } catch (err) {
         setLoading(false);
         setSuccess(false);
-
-        console.log(err);
       }
     })();
   }, []);

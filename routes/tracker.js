@@ -62,6 +62,7 @@ router.post('/', async (req, res) => {
       'Youve created a tracker',
       product.price,
       product.title,
+      `https://amazon-owl.herokuapp.com/rm/${product.trackerId}`,
       'd-46ecbd5a1048416e9f0d6f3b0b0b58f5'
     );
 
@@ -74,6 +75,29 @@ router.post('/', async (req, res) => {
     res.status(400).send({ err: 'Error creating a tracker try again' });
   }
 });
+
+function sendEmail(
+  to,
+  subject,
+  product_price,
+  product_title,
+  product_trackerId,
+  templateId
+) {
+  const email = {
+    to: to,
+    from: 'ccos2u@hotmail.com',
+    subject: subject,
+    templateId: templateId,
+    dynamic_template_data: { product_price, product_title, product_trackerId },
+  };
+
+  try {
+    return sgMail.send(email);
+  } catch (error) {
+    console.log('error sending email');
+  }
+}
 
 // @route    DELETE api/tracker
 // @desc     Deletes a tracker in the database
@@ -94,21 +118,5 @@ router.delete('/:trackerId', async (req, res) => {
     res.status(400).send({ err: 'Error removing tracker' });
   }
 });
-
-function sendEmail(to, subject, product_price, product_title, templateId) {
-  const email = {
-    to: to,
-    from: 'ccos2u@hotmail.com',
-    subject: subject,
-    templateId: templateId,
-    dynamic_template_data: { product_price, product_title },
-  };
-
-  try {
-    return sgMail.send(email);
-  } catch (error) {
-    console.log('error sending email');
-  }
-}
 
 module.exports = router;

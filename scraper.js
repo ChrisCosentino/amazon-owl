@@ -12,7 +12,7 @@ const Tracker = require('./models/Tracker');
 
 async function scrapeProducts() {
   const browserPromise = puppeteer.launch({
-    headless: false,
+    headless: true,
     args: ['--no-sandbox'],
   });
 

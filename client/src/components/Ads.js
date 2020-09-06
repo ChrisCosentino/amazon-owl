@@ -21,7 +21,7 @@ const Ads = () => {
         scrolling='no'
         border='0'
         marginWidth='0'
-        style={{ border: 'none' }}
+        style={{ border: 'none', width: '728', height: '90' }}
         frameBorder='0'></iframe>
     </div>
   );

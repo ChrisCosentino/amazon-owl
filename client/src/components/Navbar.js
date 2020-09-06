@@ -5,17 +5,6 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [openModal, setOpenModal] = useState(false);
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-
   const handleModal = () => {
     setOpenModal(!openModal);
   };
@@ -33,7 +22,7 @@ const Navbar = () => {
           <path d='M7 6H11V18H7V6Z' fill='#0f9d58' />
         </svg>
         <Link to='/' className='logo-title'>
-          Amazon Owl
+          Owl Piece
         </Link>
       </div>
       <div className='nav-link' onClick={handleModal}>

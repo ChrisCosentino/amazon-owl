@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import RemoveTracker from './components/RemoveTracker';
 
 import './styles.css';
+import Ads from './components/Ads';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route exact path='/' component={Landing} />
         <Route path='/rm/:trackerId' component={RemoveTracker} />
         <NotificationContainer />
+        <Ads />
         {/* <Landing /> */}
       </Router>
     </div>

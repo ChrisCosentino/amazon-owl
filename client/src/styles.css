@@ -223,3 +223,8 @@ body {
     text-align: left;
   }
 }
+
+.ads {
+  position: fixed;
+  bottom: 0;
+}

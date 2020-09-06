@@ -15,13 +15,13 @@ const Ads = () => {
         backgroundColor: 'red',
       }}>
       <iframe
-        src='//rcm-na.amazon-adsystem.com/e/cm?o=15&p=48&l=ur1&category=amazonhomepage&f=ifr&linkID=507fd0cebea662d7ca6170114384246b&t=owlpiece-20&tracking_id=owlpiece-20'
+        src='//rcm-na.amazon-adsystem.com/e/cm?o=15&p=48&l=ur1&category=student&banner=0HCQMYZM6QTZ3ZA40082&f=ifr&linkID=fdb7b099bbcff3c2670ae84ebe8e7c30&t=owlpiece-20&tracking_id=owlpiece-20'
         width='728'
         height='90'
         scrolling='no'
         border='0'
         marginWidth='0'
-        style={style}
+        style={{ border: 'none' }}
         frameBorder='0'></iframe>
     </div>
   );

@@ -13,10 +13,6 @@ const Ads = () => {
       className='ad'
       style={{
         border: 'none',
-        backgroundColor: 'yellow',
-        position: 'fixed',
-        bottom: '0',
-        left: '50%',
       }}
       frameBorder='0'></iframe>
   );
